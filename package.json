@@ -2,11 +2,11 @@
     "name": "grayjay-plugin-template",
     "version": "1.0.0",
     "description": "a little template for making Grayjay plugins",
-    "homepage": "https://gitlab.futo.org/videostreaming/plugins/spotify",
+    "homepage": "https://gitlab.com/kaidelorenzo/grayjay-plugin-template",
     "type": "module",
     "repository": {
         "type": "git",
-        "url": "git+https://gitlab.futo.org/videostreaming/plugins/spotify.git"
+        "url": "git+https://gitlab.com/kaidelorenzo/grayjay-plugin-template.git"
     },
     "keywords": [
         "template",
@@ -16,7 +16,7 @@
     "author": "Author Name",
     "license": "MPL-2.0",
     "bugs": {
-        "url": "https://gitlab.futo.org/videostreaming/plugins/spotify/issues"
+        "url": "https://gitlab.com/kaidelorenzo/grayjay-plugin-template/issues"
     },
     "dependencies": {},
     "devDependencies": {
