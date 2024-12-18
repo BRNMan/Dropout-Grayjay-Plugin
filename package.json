@@ -1,0 +1,40 @@
+{
+    "name": "grayjay-plugin-template",
+    "version": "1.0.0",
+    "description": "a little template for making Grayjay plugins",
+    "homepage": "https://gitlab.futo.org/videostreaming/plugins/spotify",
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git+https://gitlab.futo.org/videostreaming/plugins/spotify.git"
+    },
+    "keywords": [
+        "template",
+        "grayjay",
+        "plugin"
+    ],
+    "author": "Author Name",
+    "license": "MPL-2.0",
+    "bugs": {
+        "url": "https://gitlab.futo.org/videostreaming/plugins/spotify/issues"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "^22.10.2",
+        "@eslint/js": "^9.17.0",
+        "@types/eslint__js": "^8.42.3",
+        "eslint": "^9.17.0",
+        "typescript": "^5.7.2",
+        "typescript-eslint": "^8.18.1",
+        "@kaidelorenzo/grayjay-polyfill": "gitlab:kaidelorenzo/grayjay-polyfill#4a1aa06988cb65f3042d0d971621caa95a331bd2",
+        "@types/grayjay-source": "gitlab:kaidelorenzo/grayjay-plugin-types#849905c84d9682e481aadd1015d8c4e494c2fefe"
+    },
+    "scripts": {
+        "test": "node --test",
+        "debug-build": "node src/utilities/build.js \"http://localhost:8080\"",
+        "build": "node src/utilities/build.js",
+        "dev": "node src/utilities/dev.js",
+        "lint": "npx eslint .",
+        "release": "node src/utilities/release.js"
+    }
+}

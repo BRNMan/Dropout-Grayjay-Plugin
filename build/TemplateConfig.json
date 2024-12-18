@@ -1,0 +1,31 @@
+{
+    "name": "Template",
+    "description": "Watch some amazing example videos",
+    "author": "Author Name",
+    "authorUrl": "https://futo.org",
+    "platformUrl": "https://example.com",
+    "sourceUrl": "https://plugins.grayjay.app/Spotify/SpotifyConfig.json",
+    "repositoryUrl": "https://gitlab.futo.org/videostreaming/plugins/spotify",
+    "scriptUrl": "./TemplateScript.js",
+    "version": 1,
+    "iconUrl": "./TemplateIcon.png",
+    "id": "694251b5-61bb-44eb-b7fd-b0755fe89a5f",
+    "scriptSignature": "",
+    "scriptPublicKey": "",
+    "packages": [
+        "Http"
+    ],
+    "allowEval": false,
+    "allowUrls": [
+        "www.google.com"
+    ],
+    "settings": [
+        {
+            "variable": "exampleSetting",
+            "name": "An Example User Setting",
+            "description": "You know how to use it I know you do.",
+            "type": "Boolean",
+            "default": "true"
+        }
+    ]
+}
