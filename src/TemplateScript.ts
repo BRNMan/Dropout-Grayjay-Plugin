@@ -91,7 +91,30 @@ function saveState() {
 //#region home
 function getHome(): ContentPager {
     log(local_http.GET("https://www.google.com", {}, false).headers)
-    return new ContentPager([], false)
+
+    const url = "https://example.com"
+
+    return new ContentPager(
+        [new PlatformVideo({
+            id: new PlatformID(PLATFORM, "a video id", plugin.config.id),
+            name: "a video title",
+            author: new PlatformAuthorLink(
+                new PlatformID(PLATFORM, "a creator id", plugin.config.id),
+                "a creator name",
+                "a creator page url",
+                "a creator thumbnail url",
+                HARDCODED_ZERO
+            ),
+            datetime: HARDCODED_ZERO,
+            url,
+            thumbnails: new Thumbnails([]),
+            duration: HARDCODED_ZERO,
+            viewCount: HARDCODED_ZERO,
+            isLive: false,
+            shareUrl: url,
+        })],
+        false
+    )
 }
 //#endregion
 

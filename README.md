@@ -6,7 +6,8 @@
 2.  `npm update`
 3.  `tsc`
 4.  `npm run dev`
-5.  once you load the plugin into the app search from the home tab for "<https://example.com>" which
-    will play the video
+5.  once you load the plugin into the app the home screen should have a fake video that links to
+    <https://example.com>
+6.  tap it to open the video
 
 ## TO-DO
