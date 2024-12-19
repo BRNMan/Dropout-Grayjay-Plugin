@@ -5,7 +5,7 @@ import {
     type Settings,
 } from "./types.js"
 
-const PLATFORM = "Tempalte" as const
+const PLATFORM = "Template" as const
 const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" as const
 
 const CONTENT_REGEX = /^https:\/\/example\.com$/
@@ -55,7 +55,7 @@ function init_source<
 //#endregion
 
 //#region enable
-function enable(conf: SourceConfig, settings: Settings, savedState?: string | null) {
+function enable(conf: SourceConfig, settings: Settings, saved_state?: string | null) {
     if (IS_TESTING) {
         log("IS_TESTING true")
         log("logging configuration")
@@ -63,11 +63,11 @@ function enable(conf: SourceConfig, settings: Settings, savedState?: string | nu
         log("logging settings")
         log(settings)
         log("logging savedState")
-        log(savedState)
+        log(saved_state)
     }
     local_settings = settings
-    if (savedState !== null && savedState !== undefined) {
-        const state: State = JSON.parse(savedState)
+    if (saved_state !== null && saved_state !== undefined) {
+        const state: State = JSON.parse(saved_state)
         local_state = state
     } else {
         local_state = {
@@ -81,7 +81,7 @@ function enable(conf: SourceConfig, settings: Settings, savedState?: string | nu
 //#endregion
 
 function disable() {
-    log("Spotify log: disabling")
+    log("Template log: disabling")
 }
 
 function saveState() {
@@ -180,7 +180,7 @@ function throw_if_not_ok<T>(response: BridgeHttpResponse<T>): BridgeHttpResponse
 function assert_exhaustive(value: never): void
 function assert_exhaustive(value: never, exception_message: string): ScriptException
 function assert_exhaustive(value: never, exception_message?: string): ScriptException | undefined {
-    log(["Spotify log:", value])
+    log(["Template log:", value])
     if (exception_message !== undefined) {
         return new ScriptException(exception_message)
     }
@@ -197,5 +197,5 @@ function string_to_bytes(str: string): Uint8Array {
 
 console.log(assert_never, log_passthrough, string_to_bytes, assert_exhaustive, throw_if_not_ok, milliseconds_to_WebVTT_timestamp)
 // export statements are removed during build step
-// used for unit testing in SpotifyScript.test.ts
+// used for unit testing in TemplateScript.test.ts
 export { milliseconds_to_WebVTT_timestamp }

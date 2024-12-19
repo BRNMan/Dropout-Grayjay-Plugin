@@ -1,4 +1,4 @@
-const PLATFORM = "Tempalte";
+const PLATFORM = "Template";
 const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0";
 const CONTENT_REGEX = /^https:\/\/example\.com$/;
 const HARDCODED_ZERO = 0;
@@ -34,7 +34,7 @@ function init_source(local_source) {
 }
 //#endregion
 //#region enable
-function enable(conf, settings, savedState) {
+function enable(conf, settings, saved_state) {
     if (IS_TESTING) {
         log("IS_TESTING true");
         log("logging configuration");
@@ -42,11 +42,11 @@ function enable(conf, settings, savedState) {
         log("logging settings");
         log(settings);
         log("logging savedState");
-        log(savedState);
+        log(saved_state);
     }
     local_settings = settings;
-    if (savedState !== null && savedState !== undefined) {
-        const state = JSON.parse(savedState);
+    if (saved_state !== null && saved_state !== undefined) {
+        const state = JSON.parse(saved_state);
         local_state = state;
     }
     else {
@@ -59,7 +59,7 @@ function enable(conf, settings, savedState) {
 }
 //#endregion
 function disable() {
-    log("Spotify log: disabling");
+    log("Template log: disabling");
 }
 function saveState() {
     return JSON.stringify(local_state);
@@ -135,7 +135,7 @@ function throw_if_not_ok(response) {
     return response;
 }
 function assert_exhaustive(value, exception_message) {
-    log(["Spotify log:", value]);
+    log(["Template log:", value]);
     if (exception_message !== undefined) {
         return new ScriptException(exception_message);
     }
@@ -151,6 +151,6 @@ function string_to_bytes(str) {
 //#endregion
 console.log(assert_never, log_passthrough, string_to_bytes, assert_exhaustive, throw_if_not_ok, milliseconds_to_WebVTT_timestamp);
 // export statements are removed during build step
-// used for unit testing in SpotifyScript.test.ts
+// used for unit testing in TemplateScript.test.ts
 // export { milliseconds_to_WebVTT_timestamp };
 //# sourceMappingURL=TemplateScript.js.map
