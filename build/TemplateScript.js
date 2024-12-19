@@ -1,5 +1,6 @@
 const PLATFORM = "Tempalte";
 const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0";
+const CONTENT_REGEX = /^https:\/\/example\.com$/;
 const HARDCODED_ZERO = 0;
 const HARDCODED_EMPTY_STRING = "";
 const EMPTY_AUTHOR = new PlatformAuthorLink(new PlatformID(PLATFORM, "", plugin.config.id), "", "");
@@ -21,6 +22,8 @@ const local_source = {
     disable,
     saveState,
     getHome,
+    isContentDetailsUrl,
+    getContentDetails
 };
 init_source(local_source);
 function init_source(local_source) {
@@ -52,7 +55,7 @@ function enable(conf, settings, savedState) {
             setting_value: local_settings.exampleSetting
         };
     }
-    log(USER_AGENT, HARDCODED_ZERO, HARDCODED_EMPTY_STRING, EMPTY_AUTHOR);
+    log(USER_AGENT, HARDCODED_EMPTY_STRING, EMPTY_AUTHOR);
 }
 //#endregion
 function disable() {
@@ -63,8 +66,38 @@ function saveState() {
 }
 //#region home
 function getHome() {
-    log(local_http.GET("https://www.google.com", {}, false));
+    log(local_http.GET("https://www.google.com", {}, false).headers);
     return new ContentPager([], false);
+}
+//#endregion
+//#region content
+function isContentDetailsUrl(url) {
+    return CONTENT_REGEX.test(url);
+}
+function getContentDetails(url) {
+    return new PlatformVideoDetails({
+        id: new PlatformID(PLATFORM, "a video id", plugin.config.id),
+        name: "a video title",
+        author: new PlatformAuthorLink(new PlatformID(PLATFORM, "a creator id", plugin.config.id), "a creator name", "a creator page url", "a creator thumbnail url", HARDCODED_ZERO),
+        datetime: HARDCODED_ZERO,
+        url,
+        thumbnails: new Thumbnails([]),
+        duration: HARDCODED_ZERO,
+        viewCount: HARDCODED_ZERO,
+        isLive: false,
+        shareUrl: url,
+        description: "a video description",
+        video: new VideoSourceDescriptor([new DashSource({
+                name: "It's DASH wow!",
+                duration: 597,
+                url: "https://ftp.itec.aau.at/datasets/DASHDataset2014/BigBuckBunny/15sec/BigBuckBunny_15s_onDemand_2014_05_09.mpd",
+                language: Language.UNKNOWN
+            })]),
+        // live?: IVideoSource
+        rating: new RatingLikes(HARDCODED_ZERO),
+        subtitles: [],
+        getContentRecommendations: () => new ContentPager([], false)
+    });
 }
 //#endregion
 //#region utilities
@@ -108,4 +141,4 @@ console.log(assert_never, log_passthrough, string_to_bytes, assert_exhaustive, t
 // export statements are removed during build step
 // used for unit testing in SpotifyScript.test.ts
 // export { milliseconds_to_WebVTT_timestamp };
-//# sourceMappingURL=http://localhost:8080/build/TemplateScript.js.map
+//# sourceMappingURL=TemplateScript.js.map

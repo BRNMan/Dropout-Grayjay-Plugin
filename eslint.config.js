@@ -3,4 +3,4 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.strict, {
     ignores: ["**/*.js"]
 });
-//# sourceMappingURL=http://localhost:8080/eslint.config.js.map
+//# sourceMappingURL=eslint.config.js.map

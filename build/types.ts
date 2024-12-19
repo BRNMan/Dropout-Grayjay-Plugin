@@ -20,8 +20,6 @@ export type TemplateSource = Required<Omit<Source<
     | "getContentRecommendations"
     | "search"
     | "getSearchCapabilities"
-    | "isContentDetailsUrl"
-    | "getContentDetails"
     | "isChannelUrl"
     | "getChannel"
     | "getChannelContents"

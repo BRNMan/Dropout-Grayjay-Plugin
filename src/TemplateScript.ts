@@ -8,6 +8,8 @@ import {
 const PLATFORM = "Tempalte" as const
 const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" as const
 
+const CONTENT_REGEX = /^https:\/\/example\.com$/
+
 const HARDCODED_ZERO = 0 as const
 const HARDCODED_EMPTY_STRING = "" as const
 const EMPTY_AUTHOR = new PlatformAuthorLink(new PlatformID(PLATFORM, "", plugin.config.id), "", "")
@@ -34,6 +36,8 @@ const local_source: TemplateSource = {
     disable,
     saveState,
     getHome,
+    isContentDetailsUrl,
+    getContentDetails
 }
 init_source(local_source)
 function init_source<
@@ -72,7 +76,7 @@ function enable(conf: SourceConfig, settings: Settings, savedState?: string | nu
         }
     }
 
-    log(USER_AGENT, HARDCODED_ZERO, HARDCODED_EMPTY_STRING, EMPTY_AUTHOR)
+    log(USER_AGENT, HARDCODED_EMPTY_STRING, EMPTY_AUTHOR)
 }
 //#endregion
 
@@ -86,8 +90,45 @@ function saveState() {
 
 //#region home
 function getHome(): ContentPager {
-    log(local_http.GET("https://www.google.com", {}, false))
+    log(local_http.GET("https://www.google.com", {}, false).headers)
     return new ContentPager([], false)
+}
+//#endregion
+
+//#region content
+function isContentDetailsUrl(url: string): boolean {
+    return CONTENT_REGEX.test(url)
+}
+function getContentDetails(url: string): PlatformContentDetails {
+    return new PlatformVideoDetails({
+        id: new PlatformID(PLATFORM, "a video id", plugin.config.id),
+        name: "a video title",
+        author: new PlatformAuthorLink(
+            new PlatformID(PLATFORM, "a creator id", plugin.config.id),
+            "a creator name",
+            "a creator page url",
+            "a creator thumbnail url",
+            HARDCODED_ZERO
+        ),
+        datetime: HARDCODED_ZERO,
+        url,
+        thumbnails: new Thumbnails([]),
+        duration: HARDCODED_ZERO,
+        viewCount: HARDCODED_ZERO,
+        isLive: false,
+        shareUrl: url,
+        description: "a video description",
+        video: new VideoSourceDescriptor([new DashSource({
+            name: "It's DASH wow!",
+            duration: 597,
+            url: "https://ftp.itec.aau.at/datasets/DASHDataset2014/BigBuckBunny/15sec/BigBuckBunny_15s_onDemand_2014_05_09.mpd",
+            language: Language.UNKNOWN
+        })]),
+        // live?: IVideoSource
+        rating: new RatingLikes(HARDCODED_ZERO),
+        subtitles: [],
+        getContentRecommendations: () => new ContentPager([], false)
+    })
 }
 //#endregion
 
