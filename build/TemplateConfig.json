@@ -4,7 +4,7 @@
     "author": "Author Name",
     "authorUrl": "https://gitlab.com/kaidelorenzo",
     "platformUrl": "https://example.com",
-    "sourceUrl": "https://plugins.grayjay.app/Spotify/SpotifyConfig.json",
+    "sourceUrl": "https://gitlab.com/kaidelorenzo/grayjay-plugin-template/-/blob/main/build/TemplateConfig.json",
     "repositoryUrl": "https://gitlab.com/kaidelorenzo/grayjay-plugin-template",
     "scriptUrl": "./TemplateScript.js",
     "version": 1,
