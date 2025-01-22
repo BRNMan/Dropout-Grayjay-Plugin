@@ -20,21 +20,31 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "@types/node": "^22.10.2",
-        "@eslint/js": "^9.17.0",
+        "@types/node": "^22.10.7",
+        "@eslint/js": "^9.18.0",
         "@types/eslint__js": "^8.42.3",
-        "eslint": "^9.17.0",
-        "typescript": "^5.7.2",
-        "typescript-eslint": "^8.18.1",
+        "eslint": "^9.18.0",
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.21.0",
         "@kaidelorenzo/grayjay-polyfill": "gitlab:kaidelorenzo/grayjay-polyfill#4a1aa06988cb65f3042d0d971621caa95a331bd2",
         "@types/grayjay-source": "gitlab:kaidelorenzo/grayjay-plugin-types#849905c84d9682e481aadd1015d8c4e494c2fefe"
     },
     "scripts": {
         "test": "node --test",
-        "debug-build": "node src/utilities/build.js \"http://localhost:8080\"",
-        "build": "node src/utilities/build.js",
-        "dev": "node src/utilities/dev.js",
-        "lint": "npx eslint .",
-        "release": "node src/utilities/release.js"
+        "debug-build:node": "node src/utilities/build.js \"http://localhost:8080\"",
+        "debug-build:bun": "bun run src/utilities/build.js \"http://localhost:8080\"",
+        "debug-build:deno": "deno run --allow-read --allow-write --allow-env --allow-run src/utilities/build.js \"http://localhost:8080\"",
+        "build:node": "node src/utilities/build.js",
+        "build:bun": "bun run src/utilities/build.js",
+        "build:deno": "deno run --allow-read --allow-write --allow-env --allow-run src/utilities/build.js",
+        "dev:node": "node src/utilities/dev.js",
+        "dev:bun": "bun run src/utilities/dev.js",
+        "dev:deno": "deno run --allow-read --allow-env --allow-run src/utilities/dev.js",
+        "lint:node": "npx eslint .",
+        "lint:bun": "bunx eslint .",
+        "lint:deno": "deno lint",
+        "release:node": "node src/utilities/release.js",
+        "release:bun": "bun run src/utilities/release.js",
+        "release:deno": "deno run --allow-read --allow-env --allow-run src/utilities/release.js"
     }
 }
