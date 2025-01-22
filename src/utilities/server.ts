@@ -1,29 +1,29 @@
 import { createServer } from "node:http"
-import { networkInterfaces } from 'os'
+import { networkInterfaces } from "node:os"
 import { readFile } from "node:fs/promises"
 
 const PORT = 8080
 
 // Define a map of files to serve
 const files = {
-    "/build/TemplateScript.js": {
-        content: await readFile("build/TemplateScript.js"),
+    "/build/script.js": {
+        content: await readFile("build/script.js"),
         type: "application/javascript",
     },
-    "/build/TemplateScript.ts": {
-        content: await readFile("build/TemplateScript.ts"),
+    "/build/script.ts": {
+        content: await readFile("build/script.ts"),
         type: "application/x-typescript",
     },
-    "/build/TemplateScript.js.map": {
-        content: await readFile("build/TemplateScript.js.map"),
+    "/build/script.js.map": {
+        content: await readFile("build/script.js.map"),
         type: "application/json",
     },
-    "/build/TemplateConfig.json": {
-        content: await readFile("build/TemplateConfig.json"),
+    "/build/config.json": {
+        content: await readFile("build/config.json"),
         type: "application/json",
     },
-    "/build/TemplateIcon.png": {
-        content: await readFile("build/TemplateIcon.png"),
+    "/build/icon.png": {
+        content: await readFile("build/icon.png"),
         type: "image/png",
     },
 } as const
@@ -50,15 +50,15 @@ function getLocalIPAddress(): string {
 createServer((req, res) => {
     const file = (() => {
         switch (req.url) {
-            case "/build/TemplateScript.js":
+            case "/build/script.js":
                 return files[req.url]
-            case "/build/TemplateScript.ts":
+            case "/build/script.ts":
                 return files[req.url]
-            case "/build/TemplateScript.js.map":
+            case "/build/script.js.map":
                 return files[req.url]
-            case "/build/TemplateConfig.json":
+            case "/build/config.json":
                 return files[req.url]
-            case "/build/TemplateIcon.png":
+            case "/build/icon.png":
                 return files[req.url]
             default:
                 return undefined
@@ -75,5 +75,5 @@ createServer((req, res) => {
     res.end("File not found")
     return
 }).listen(PORT, () => {
-    console.log(`Server running at http://${getLocalIPAddress()}:${PORT}/build/TemplateConfig.json`)
+    console.log(`Server running at http://${getLocalIPAddress()}:${PORT}/build/config.json`)
 })

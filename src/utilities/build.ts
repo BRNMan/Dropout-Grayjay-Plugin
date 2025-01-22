@@ -45,12 +45,13 @@ async function modifyFile(filePath: string, offset: number) {
     })
 }
 
-await copyFile("src/TemplateScript.ts", "build/TemplateScript.ts")
-await copyFile("src/types.ts", "build/types.ts")
+const promise1 = copyFile("src/script.ts", "build/script.ts")
+const promise2 = copyFile("src/types.ts", "build/types.ts")
+await Promise.all([promise1, promise2]);
 if (argv[2] !== undefined) {
-    execFileSync("tsc", ["--mapRoot", argv[2], "--sourceRoot", argv[2]], { stdio: 'inherit' })
+    execFileSync("tsc", ["--mapRoot", argv[2], "--sourceRoot", argv[2]], { shell: true, encoding: 'utf-8', stdio: 'inherit' })
 } else {
-    execFileSync("tsc", { stdio: 'inherit' })
+    execFileSync("tsc", { shell: true, encoding: 'utf-8', stdio: 'inherit'})
 }
-modifyFile("build/TemplateScript.ts", 0)
-modifyFile("build/TemplateScript.js", 1)
+modifyFile("build/script.ts", 0)
+modifyFile("build/script.js", 1)

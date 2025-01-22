@@ -4,7 +4,7 @@ import assert from "node:assert"
 // initializes global state
 import "@kaidelorenzo/grayjay-polyfill"
 
-import { milliseconds_to_WebVTT_timestamp } from "./TemplateScript.js"
+import { milliseconds_to_WebVTT_timestamp } from "./script.js"
 //#endregion
 
 describe("script module", { skip: false }, () => {
