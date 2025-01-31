@@ -6,6 +6,7 @@ import {
 } from "./types.js"
 
 const PLATFORM = "Template" as const
+const URL_BASE = "https://www.dropout.tv";
 const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" as const
 
 const CONTENT_REGEX = /^https:\/\/example\.com$/
@@ -37,7 +38,7 @@ const local_source: TemplateSource = {
     saveState,
     getHome,
     isContentDetailsUrl,
-    getContentDetails
+    getContentDetails,
 }
 init_source(local_source)
 function init_source<
@@ -154,6 +155,35 @@ function getContentDetails(url: string): PlatformContentDetails {
     })
 }
 //#endregion
+
+function isContentDetailsUrl (url: string): boolean {
+    return url == URL_BASE;
+}
+function getContentDetails (url: string): PlatformContentDetails {
+    return new PlatformVideoDetails({
+        description: "",
+        video: new VideoSourceDescriptor([]),
+        rating: new RatingLikes(10),
+        subtitles: [],
+        getContentRecommendations: () => {return new ContentPager([], false)},
+        thumbnails: new Thumbnails([]),
+        duration: 10,
+        viewCount: 10,
+        isLive: false,
+        shareUrl: "share.com",
+        /** unix time */
+        datetime: 10,
+        id: new PlatformID(PLATFORM,"VIDEO_ID",plugin.config.id),
+        name: "POOPYPOOP",
+        /** the array of Thumbnails is for posts */
+        author: new PlatformAuthorLink(
+            new PlatformID(PLATFORM,"CREATOR_ID",plugin.config.id),
+            "DROPOUT",
+            "dropout.tv",
+        ),
+        url,
+    });
+}
 
 //#region utilities
 /**
