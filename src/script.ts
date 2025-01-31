@@ -3,19 +3,18 @@ import {
     type State,
     type TemplateSource,
     type Settings,
+    VimeoConfigResponse,
 } from "./types.js"
 
 const PLATFORM = "Template" as const
-const URL_BASE = "https://www.dropout.tv";
+//const URL_BASE = "https://www.dropout.tv";
 const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" as const
-
-const CONTENT_REGEX = /^https:\/\/example\.com$/
 
 const HARDCODED_ZERO = 0 as const
 const HARDCODED_EMPTY_STRING = "" as const
 const EMPTY_AUTHOR = new PlatformAuthorLink(new PlatformID(PLATFORM, "", plugin.config.id), "", "")
 
-const local_http = http
+//const local_http = http
 // const local_utility = utility
 
 // set missing constants
@@ -91,7 +90,6 @@ function saveState() {
 
 //#region home
 function getHome(): ContentPager {
-    log(local_http.GET("https://www.google.com", {}, false).headers)
 
     const url = "https://example.com"
 
@@ -120,49 +118,36 @@ function getHome(): ContentPager {
 //#endregion
 
 //#region content
-function isContentDetailsUrl(url: string): boolean {
-    return CONTENT_REGEX.test(url)
+function isContentDetailsUrl(_url: string): boolean {
+    return true;
 }
 function getContentDetails(url: string): PlatformContentDetails {
-    return new PlatformVideoDetails({
-        id: new PlatformID(PLATFORM, "a video id", plugin.config.id),
-        name: "a video title",
-        author: new PlatformAuthorLink(
-            new PlatformID(PLATFORM, "a creator id", plugin.config.id),
-            "a creator name",
-            "a creator page url",
-            "a creator thumbnail url",
-            HARDCODED_ZERO
-        ),
-        datetime: HARDCODED_ZERO,
-        url,
-        thumbnails: new Thumbnails([]),
-        duration: HARDCODED_ZERO,
-        viewCount: HARDCODED_ZERO,
-        isLive: false,
-        shareUrl: url,
-        description: "a video description",
-        video: new VideoSourceDescriptor([new DashSource({
-            name: "It's DASH wow!",
-            duration: 597,
-            url: "https://ftp.itec.aau.at/datasets/DASHDataset2014/BigBuckBunny/15sec/BigBuckBunny_15s_onDemand_2014_05_09.mpd",
-            language: Language.UNKNOWN
-        })]),
-        // live?: IVideoSource
-        rating: new RatingLikes(HARDCODED_ZERO),
-        subtitles: [],
-        getContentRecommendations: () => new ContentPager([], false)
-    })
-}
-//#endregion
+    if(!bridge.isLoggedIn()) {
+        throw new LoginRequiredException("Please log into Dropout.");
+    }
+    const tokenHTML = http.GET("https://www.dropout.tv/browse",{},true);
+    const token = tokenHTML.body.match(/token:\s*"(.*)"/)?.[1];
+    if(token === undefined) {
+        throw new ScriptException("Couldn't login. Please restart your computer1.");
+    }
 
-function isContentDetailsUrl (url: string): boolean {
-    return url == URL_BASE;
-}
-function getContentDetails (url: string): PlatformContentDetails {
+    const embedVideoURL = http.GET(url,{"Referer": "https://www.dropout.tv/"},true).body.match(/embed_url:\s*"(.*?)"/)?.[1];
+    
+    if(embedVideoURL === undefined) {
+        throw new ScriptException("Couldn't login. Please restart your computer2.");
+    }
+
+    const configResponse = JSON.parse(http.GET(embedVideoURL.replace(/&amp;/g, '&'),{"Referer": "https://www.dropout.tv/"},false).body.match(/"config_url":(".*?")/)?.[1]!);
+    if(configResponse === undefined) {
+        throw new ScriptException("Couldn't login. Please restart your computer3.");
+    }
+
+    const configURL: VimeoConfigResponse = JSON.parse(http.GET(configResponse,{},false).body);
+    console.log(configURL);
+
     return new PlatformVideoDetails({
         description: "",
-        video: new VideoSourceDescriptor([]),
+        video: new VideoSourceDescriptor([new DashSource({url: configURL.request.files.dash.cdns.akfire_interconnect_quic.url})]),
         rating: new RatingLikes(10),
         subtitles: [],
         getContentRecommendations: () => {return new ContentPager([], false)},
@@ -184,6 +169,7 @@ function getContentDetails (url: string): PlatformContentDetails {
         url,
     });
 }
+//#endregion
 
 //#region utilities
 /**

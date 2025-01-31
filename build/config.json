@@ -17,15 +17,13 @@
     ],
     "allowEval": false,
     "allowUrls": [
-        "www.google.com"
+        "www.dropout.tv",
+        "embed.vhx.tv",
+        "player.vimeo.com"
     ],
-    "settings": [
-        {
-            "variable": "exampleSetting",
-            "name": "An Example User Setting",
-            "description": "You know how to use it I know you do.",
-            "type": "Boolean",
-            "default": "true"
-        }
-    ]
+    "authentication": {
+		"loginUrl": "https://www.dropout.tv/login",
+		"cookiesToFind": ["_session","_device"]
+	}
+
 }

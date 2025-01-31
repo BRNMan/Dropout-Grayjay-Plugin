@@ -41,4 +41,26 @@ export type State = {
 //#endregion
 
 //#region JSON types
+export type VimeoConfigResponse = {
+    readonly request: {
+        readonly files: {
+            readonly hls: {
+                readonly cdns: {
+                    readonly akfire_interconnect_quic: {
+                        readonly url: string;
+                    }
+                    readonly default_cdn: string;
+                }
+            }
+            readonly dash: {
+                readonly cdns: {
+                    readonly akfire_interconnect_quic: {
+                        readonly url: string;
+                    }
+                    readonly default_cdn: string;
+                }
+            }
+        }
+    }
+}
 //#endregion
