@@ -1,49 +1,48 @@
 {
-    "name": "grayjay-plugin-template",
+    "name": "grayjay-plugin-dropout",
     "version": "1.0.0",
-    "description": "a little template for making Grayjay plugins",
-    "homepage": "https://gitlab.com/kaidelorenzo/grayjay-plugin-template",
+    "description": "play Dropout in Grayjay",
+    "homepage": "https://github.com/BRNMan/Dropout-Grayjay-Plugin",
     "type": "module",
     "repository": {
         "type": "git",
-        "url": "git+https://gitlab.com/kaidelorenzo/grayjay-plugin-template.git"
+        "url": "git+https://github.com/BRNMan/Dropout-Grayjay-Plugin.git"
     },
     "keywords": [
-        "template",
+        "dropout",
         "grayjay",
         "plugin"
     ],
-    "author": "Author Name",
+    "author": "Michael Braun",
     "license": "MPL-2.0",
     "bugs": {
-        "url": "https://gitlab.com/kaidelorenzo/grayjay-plugin-template/issues"
+        "url": "https://github.com/BRNMan/Dropout-Grayjay-Plugin/issues"
     },
     "devDependencies": {
-        "@eslint/js": "^9.18.0",
         "@kaidelorenzo/grayjay-polyfill": "gitlab:kaidelorenzo/grayjay-polyfill#4a1aa06988cb65f3042d0d971621caa95a331bd2",
-        "@types/eslint__js": "^8.42.3",
-        "@types/grayjay-source": "gitlab:kaidelorenzo/grayjay-plugin-types#849905c84d9682e481aadd1015d8c4e494c2fefe",
+        "@types/grayjay-source": "gitlab:kaidelorenzo/grayjay-plugin-types#9dcec6910917e3ddc5a663f20be84bd97dc1fe9a",
+        "@eslint/js": "^9.18.0",
         "@types/node": "^22.10.7",
         "eslint": "^9.18.0",
         "typescript": "^5.7.3",
         "typescript-eslint": "^8.21.0"
     },
     "scripts": {
-        "test": "node --test",
-        "debug-build:node": "node src/utilities/build.js \"http://localhost:8080\"",
-        "debug-build:bun": "bun run src/utilities/build.js \"http://localhost:8080\"",
-        "debug-build:deno": "deno run --allow-read --allow-write --allow-env --allow-run src/utilities/build.js \"http://localhost:8080\"",
-        "build:node": "node src/utilities/build.js",
-        "build:bun": "bun run src/utilities/build.js",
-        "build:deno": "deno run --allow-read --allow-write --allow-env --allow-run src/utilities/build.js",
-        "dev:node": "node src/utilities/dev.js",
-        "dev:bun": "bun run src/utilities/dev.js",
-        "dev:deno": "deno run --allow-read --allow-env --allow-run src/utilities/dev.js",
+        "test": "node --no-experimental-strip-types --test",
+        "debug-build:node": "node _dist/src/utilities/build.js \"http://localhost:8080\"",
+        "debug-build:bun": "bun run _dist/src/utilities/build.js \"http://localhost:8080\"",
+        "debug-build:deno": "deno run --allow-read --allow-write --allow-env --allow-run _dist/src/utilities/build.js \"http://localhost:8080\"",
+        "build:node": "node _dist/src/utilities/build.js",
+        "build:bun": "bun run _dist/src/utilities/build.js",
+        "build:deno": "deno run --allow-read --allow-write --allow-env --allow-run _dist/src/utilities/build.js",
+        "dev:node": "node _dist/src/utilities/dev.js",
+        "dev:bun": "bun run _dist/src/utilities/dev.js",
+        "dev:deno": "deno run --allow-read --allow-env --allow-run _dist/src/utilities/dev.js",
         "lint:node": "npx eslint .",
         "lint:bun": "bunx eslint .",
         "lint:deno": "deno lint",
-        "release:node": "node src/utilities/release.js",
-        "release:bun": "bun run src/utilities/release.js",
-        "release:deno": "deno run --allow-read --allow-env --allow-run src/utilities/release.js"
+        "release:node": "node _dist/src/utilities/release.js",
+        "release:bun": "bun run _dist/src/utilities/release.js",
+        "release:deno": "deno run --allow-read --allow-env --allow-run _dist/src/utilities/release.js"
     }
 }

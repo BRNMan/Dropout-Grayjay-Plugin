@@ -1,0 +1,67 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      environment:
+        description: 'Environment to deploy'
+        required: false
+        default: 'staging'
+
+jobs:
+  build-and-release:
+    name: Build and Create Release
+    runs-on: ubuntu-latest
+    env:
+      PASSPHRASE: ${{ secrets.PASSPHRASE }} # Ensure PASSPHRASE is stored in GitHub Secrets
+      SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "latest"
+
+      - name: Install Dependencies
+        run: npm update
+
+      - name: Compile TypeScript
+        run: tsc
+
+      - name: Lint TypeScript
+        run: npm run lint:node
+
+      - name: Test TypeScript
+        run: npm test
+
+      - name: Save Signing Key
+        run: 'echo "$SIGNING_KEY" > private-key.pem'
+
+      - name: Build Script
+        run: npm run build:node
+
+      - name: Sign files
+        run: |
+          node _dist/src/utilities/sign.js deploy/config.json deploy/script.js private-key.pem "$PASSPHRASE"
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            deploy/icon.png
+            deploy/config.json
+            deploy/script.js
+            deploy/script.js.map
+            deploy/script.ts
+          token: ${{ secrets.GH_TOKEN }}

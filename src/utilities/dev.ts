@@ -27,13 +27,13 @@ function debug_build(env: Runtime) {
 function start_server(env: Runtime) {
     switch (env) {
         case "deno":
-            execFileSync("deno", ["run", "--allow-read", "--allow-net", "--allow-sys", "src/utilities/server.js"], { stdio: 'inherit' })
+            execFileSync("deno", ["run", "--allow-read", "--allow-net", "--allow-sys", "_dist/src/utilities/server.js"], { stdio: 'inherit' })
             break
         case "bun":
-            execFileSync("bun", ["run", "src/utilities/server.js"], { stdio: 'inherit' })
+            execFileSync("bun", ["run", "_dist/src/utilities/server.js"], { stdio: 'inherit' })
             break
         case "node":
-            execFileSync("node", ["src/utilities/server.js"], { stdio: 'inherit' })
+            execFileSync("node", ["_dist/src/utilities/server.js"], { stdio: 'inherit' })
             break
         case "unknown":
             throw new Error("unknown environment")

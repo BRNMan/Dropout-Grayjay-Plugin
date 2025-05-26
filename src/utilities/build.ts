@@ -25,8 +25,12 @@ async function modifyFile(filePath: string, offset: number) {
     readStream.close()
 
     if (lines[lines.length - (1 + offset)]?.slice(0, 6) === "export") {
+        const line = lines[lines.length - (1 + offset)]
+        if (line === undefined) {
+            throw new Error("panic")
+        }
         // Comment out export line
-        lines[lines.length - (1 + offset)] = `// ${lines[lines.length - (1 + offset)]}`
+        lines[lines.length - (1 + offset)] = `// ${line}`
     }
 
     for (const line of lines) {
@@ -35,23 +39,25 @@ async function modifyFile(filePath: string, offset: number) {
 
     writeStream.end()
 
-    writeStream.on('finish', async () => {
+    writeStream.on('finish', () => {
         // Rename the temporary file to overwrite the original file
-        await rename(tempFilePath, filePath)
-    });
+        console.log(rename(tempFilePath, filePath))
+    })
 
     writeStream.on('error', (error) => {
         console.error('Error writing to file:', error)
     })
 }
-
-const promise1 = copyFile("src/script.ts", "build/script.ts")
-const promise2 = copyFile("src/types.ts", "build/types.ts")
-await Promise.all([promise1, promise2]);
 if (argv[2] !== undefined) {
     execFileSync("tsc", ["--mapRoot", argv[2], "--sourceRoot", argv[2]], { shell: true, encoding: 'utf-8', stdio: 'inherit' })
 } else {
-    execFileSync("tsc", { shell: true, encoding: 'utf-8', stdio: 'inherit'})
+    execFileSync("tsc", { shell: true, encoding: 'utf-8', stdio: 'inherit' })
 }
-modifyFile("build/script.ts", 0)
-modifyFile("build/script.js", 1)
+const promise1 = copyFile("src/script.ts", "deploy/script.ts")
+const promise2 = copyFile("_dist/src/script.js", "deploy/script.js")
+const promise3 = copyFile("_dist/src/script.js.map", "deploy/script.js.map")
+await Promise.all([promise1, promise2, promise3])
+await Promise.all([
+    modifyFile("deploy/script.ts", 0),
+    modifyFile("deploy/script.js", 1)
+])

@@ -28,6 +28,7 @@ function sign(config_path: string, script_path: string, private_key_path: string
             format: 'der'
         })
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const config: {
         scriptSignature?: string
         scriptPublicKey?: string

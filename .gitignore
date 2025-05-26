@@ -1,11 +1,10 @@
 node_modules
-*.js
-*.js.map
 
 tsconfig.tsbuildinfo
 bun.lockb
 package-lock.json
 
 _dist
-build/types.ts
-build/script.ts
+deploy/script.js
+deploy/script.js.map
+deploy/script.ts
