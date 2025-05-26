@@ -312,7 +312,7 @@ function getChannelContents(url: string): SeriesContentPager {
     const author = new PlatformAuthorLink(
         new PlatformID(PLATFORM, show.slug, plugin.config.id),
         show.title,
-        `${API_BASE}/${show.slug}`,
+        `${URL_BASE}/${show.slug}`,
         show.thumbnail.source
     )
 
@@ -394,7 +394,7 @@ function getChannelPlaylists(url: string): PlaylistPager {
     const author = new PlatformAuthorLink(
         new PlatformID(PLATFORM, show.slug, plugin.config.id),
         show.title,
-        `${API_BASE}/${show.slug}`,
+        `${URL_BASE}/${show.slug}`,
         show.thumbnail.source
     )
 
@@ -461,7 +461,7 @@ function getPlaylist(url: string) {
     const author = new PlatformAuthorLink(
         new PlatformID(PLATFORM, show.slug, plugin.config.id),
         show.title,
-        `${API_BASE}/${show.slug}`,
+        `${URL_BASE}/${show.slug}`,
         show.thumbnail.source
     )
 
