@@ -201,21 +201,27 @@ function getContentDetails(url: string): PlatformContentDetails {
             format: "text/vtt"
         })),
         getContentRecommendations: () => {
-            if (video_response.canonical_collection_id === null) {
+            if (video_response.canonical_collection === null) {
                 return new ContentPager([], false)
             }
 
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const season_items_response: SeasonEpisodesResponse = JSON.parse(local_http.GET(
-                `${API_BASE}/collections/${video_response.canonical_collection_id.toString()}/items`,
+                `${API_BASE}/collections/${video_response.canonical_collection.id.toString()}/items`,
                 { Authorization: `Bearer ${bearer_token}` },
                 false
             ).body)
 
+            const video_index = season_items_response._embedded.items.findIndex(video => video.id === video_response.id)
+
+            if (video_index === -1) {
+                return new ContentPager([], false)
+            }
+
+            const elements_after_index = season_items_response._embedded.items.slice(video_index + 1)
+
             return new ContentPager(
-                season_items_response._embedded.items
-                    .filter(video => video.episode_number > video_response.episode_number)
-                    .map(video => format_video(video, series)),
+                elements_after_index.map(video => format_video(video, series)),
                 false
             )
         },

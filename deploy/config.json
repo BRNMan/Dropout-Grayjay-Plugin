@@ -7,7 +7,7 @@
     "sourceUrl": "https://github.com/BRNMan/Dropout-Grayjay-Plugin/releases/latest/download/config.json",
     "repositoryUrl": "https://github.com/BRNMan/Dropout-Grayjay-Plugin",
     "scriptUrl": "./script.js",
-    "version": 2,
+    "version": 3,
     "iconUrl": "./icon.png",
     "id": "0b2d28e0-d645-4169-829f-8961a6169e68",
     "packages": [

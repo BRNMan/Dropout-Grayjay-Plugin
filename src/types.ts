@@ -80,6 +80,7 @@ export type CustomerResponse = {
 }
 export interface VideoResponse extends LimitedVideo {
     readonly canonical_collection: {
+        readonly id: number
         readonly parent: {
             readonly title: string
             readonly slug: string
@@ -102,7 +103,6 @@ export interface LimitedVideo {
     /** the url slug part after videos/ */
     readonly url: string
     readonly is_free: boolean
-    readonly canonical_collection_id: number | null
     readonly tracks: {
         readonly subtitles: {
             readonly label: string
@@ -114,6 +114,7 @@ export interface LimitedVideo {
         }[]
     }
     readonly episode_number: number
+    readonly id: number
 }
 export type FilesResponse = [{
     readonly codec: "h264"
