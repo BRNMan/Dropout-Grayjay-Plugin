@@ -3,7 +3,7 @@ import process from "node:process"
 function assert_exhaustive(value: never): void
 function assert_exhaustive(value: never, exception_message: string): Error
 function assert_exhaustive(value: never, exception_message?: string): Error | undefined {
-    console.log(["Vimeo log:", value])
+    console.log(["Dropout log:", value])
     if (exception_message !== undefined) {
         return new Error(exception_message)
     }

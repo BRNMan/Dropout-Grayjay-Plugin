@@ -552,7 +552,7 @@ function throw_if_not_ok<T>(response: BridgeHttpResponse<T>): BridgeHttpResponse
 function assert_exhaustive(value: never): void
 function assert_exhaustive(value: never, exception_message: string): ScriptException
 function assert_exhaustive(value: never, exception_message?: string): ScriptException | undefined {
-    log(["Template log:", value])
+    log(["Dropout log:", value])
     if (exception_message !== undefined) {
         return new ScriptException(exception_message)
     }
