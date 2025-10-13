@@ -3,7 +3,7 @@
     "description": "Independent, ad-free, uncensored comedy.",
     "author": "Michael Braun",
     "authorUrl": "https://github.com/BRNMan",
-    "platformUrl": "https://www.dropout.tv",
+    "platformUrl": "https://watch.dropout.tv",
     "sourceUrl": "https://github.com/BRNMan/Dropout-Grayjay-Plugin/releases/latest/download/config.json",
     "repositoryUrl": "https://github.com/BRNMan/Dropout-Grayjay-Plugin",
     "scriptUrl": "./script.js",
@@ -15,12 +15,12 @@
     ],
     "allowEval": false,
     "allowUrls": [
-        "www.dropout.tv",
+        "watch.dropout.tv",
         "api.vhx.com",
         "api.vhx.tv"
     ],
     "authentication": {
-		"loginUrl": "https://www.dropout.tv/login",
+		"loginUrl": "https://watch.dropout.tv/login",
 		"cookiesToFind": ["_session","_device"]
 	}
 }

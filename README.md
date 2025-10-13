@@ -1,6 +1,6 @@
 # Grayjay Plugin Template
 
-A [Grayjay](https://grayjay.app) plugin for [Dropout](https://www.dropout.tv)
+A [Grayjay](https://grayjay.app) plugin for [Dropout](https://watch.dropout.tv)
 
 ## Installation
 
@@ -12,15 +12,21 @@ Or scan the QR code from the Grayjay app
 
 [![Scan this QR code in the Grayjay app to install this Vimeo plugin for Grayjay](assets/qr.svg)](grayjay://plugin/https://github.com/BRNMan/Dropout-Grayjay-Plugin/releases/latest/download/config.json)
 
+## Usage
+
+Note that this is mostly a proof of concept plugin with very limited functionality. Enter urls to
+open series and play videos. Go to a page on <watch.dropout.tv> and paste it into Grayjay or share
+the link to Grayjay.
+
 ## Development
 
-1. install typescript (`tsc`) and `node/npm`, `deno` or, `bun`
-2. `npm update`
-3. `tsc`
-4. `npm run dev:node`
+1.  install typescript (`tsc`) and `node/npm`, `deno` or, `bun`
+2.  `npm update`
+3.  `tsc`
+4.  `npm run dev:node`
 
 ## TO-DO
 
-- Search
-- Home
-- Import
+-   Search
+-   Home
+-   Import

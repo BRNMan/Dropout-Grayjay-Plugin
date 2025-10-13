@@ -16,13 +16,13 @@ import {
 // https://dev.vhx.tv/docs/api/
 
 const PLATFORM = "Dropout" as const
-const URL_BASE = "https://www.dropout.tv"
+const URL_BASE = "https://watch.dropout.tv"
 const API_BASE = "https://api.vhx.com"
 
-const CONTENT_REGEX = /^https:\/\/www\.dropout\.tv\/(|[0-9a-z-]+(|\/season:[0-9]+)\/)videos\/[0-9a-z-]+$/
-const CHANNEL_REGEX = /^https:\/\/www\.dropout\.tv\/([0-9a-z-]+)($|\/)/
-const NOT_CHANNEL_REGEX = /^https:\/\/www\.dropout\.tv\/(browse|series)$/
-const PLAYLIST_REGEX = /^https:\/\/www\.dropout\.tv\/[[0-9a-z-]+\/season:([0-9]+)($|\/)/
+const CONTENT_REGEX = /^https:\/\/watch\.dropout\.tv\/(|[0-9a-z-]+(|\/season:[0-9]+)\/)videos\/[0-9a-z-]+$/
+const CHANNEL_REGEX = /^https:\/\/watch\.dropout\.tv\/([0-9a-z-]+)($|\/)/
+const NOT_CHANNEL_REGEX = /^https:\/\/watch\.dropout\.tv\/(browse|series)$/
+const PLAYLIST_REGEX = /^https:\/\/watch\.dropout\.tv\/[[0-9a-z-]+\/season:([0-9]+)($|\/)/
 
 const BEARER_TOKEN_REGEX = /token: "([-._0-9a-zA-Z]+?)",/
 const VIDEO_ID_REGEX = /id: "([0-9]+)",/
@@ -87,7 +87,7 @@ function enable(conf: SourceConfig, settings: Settings, saved_state?: string | n
     } else {
         const is_subscribed = (() => {
             if (bridge.isLoggedIn()) {
-                const html = local_http.GET("https://www.dropout.tv/browse", {}, true).body
+                const html = local_http.GET("https://watch.dropout.tv/browse", {}, true).body
                 const match_result = html.match(CURRENT_USER_REGEX)
 
                 if (match_result?.[1] === undefined) {
