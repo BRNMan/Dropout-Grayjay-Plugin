@@ -15,7 +15,7 @@ Or scan the QR code from the Grayjay app
 ## Usage
 
 Note that this is mostly a proof of concept plugin with very limited functionality. Enter urls to
-open series and play videos. Go to a page on <watch.dropout.tv> and paste it into Grayjay or share
+open series and play videos. Go to a page on <https://watch.dropout.tv> and paste it into Grayjay or share
 the link to Grayjay.
 
 ## Development
