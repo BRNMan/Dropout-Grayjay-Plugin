@@ -20,12 +20,12 @@
     },
     "devDependencies": {
         "@kaidelorenzo/grayjay-polyfill": "gitlab:kaidelorenzo/grayjay-polyfill#4a1aa06988cb65f3042d0d971621caa95a331bd2",
-        "@types/grayjay-source": "gitlab:kaidelorenzo/grayjay-plugin-types#9dcec6910917e3ddc5a663f20be84bd97dc1fe9a",
-        "@eslint/js": "^9.18.0",
-        "@types/node": "^24.7.2",
-        "eslint": "^9.18.0",
-        "typescript": "^5.7.3",
-        "typescript-eslint": "^8.21.0"
+        "@types/grayjay-source": "gitlab:kaidelorenzo/grayjay-plugin-types#6743b69e9b2a3afffa54cf2a9d3c46033e76021c",
+        "@eslint/js": "^10.0.1",
+        "@types/node": "^25.9.2",
+        "eslint": "^10.4.1",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.61.0"
     },
     "scripts": {
         "test": "node --no-experimental-strip-types --test",

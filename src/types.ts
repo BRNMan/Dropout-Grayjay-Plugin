@@ -118,7 +118,7 @@ export interface LimitedVideo {
 }
 export type FilesResponse = [{
     readonly codec: "h264"
-    readonly mime_type: "application/dash+xml"
+    readonly mime_type: "application/dash+xml" | "application/x-mpegURL"
     readonly _links: {
         readonly source: {
             readonly href: string

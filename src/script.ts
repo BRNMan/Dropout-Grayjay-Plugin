@@ -137,6 +137,7 @@ function saveState() {
 function isContentDetailsUrl(url: string): boolean {
     return CONTENT_REGEX.test(url)
 }
+// free example content https://watch.dropout.tv/videos/protest-justice-and-black-lives-matter-special-episode
 function getContentDetails(url: string): PlatformContentDetails {
     const html = local_http.GET(url, {}, true).body
 
@@ -147,6 +148,8 @@ function getContentDetails(url: string): PlatformContentDetails {
         throw new ScriptException("unable to aquire video id")
     }
 
+    const format = bridge.buildPlatform === "desktop" ? "m3u8" : "mpd" // desktop doesn't support Dash
+
     const responses = local_http
         .batch()
         .GET(
@@ -155,7 +158,7 @@ function getContentDetails(url: string): PlatformContentDetails {
             false
         )
         .GET(
-            `${API_BASE}/videos/${video_id}/files?format=mpd&quality=adaptive`,
+            `${API_BASE}/videos/${video_id}/files?format=${format}&quality=adaptive`,
             { Authorization: `Bearer ${bearer_token}` },
             false
         )
@@ -189,11 +192,23 @@ function getContentDetails(url: string): PlatformContentDetails {
         video_response.canonical_collection.parent.thumbnail.source
     )
 
+    const video_source = (() => {
+        switch (format) {
+            case "m3u8":
+                return new VideoSourceDescriptor([new HLSSource({
+                    url: files_response[0]._links.source.href,
+                    language: Language.UNKNOWN,
+                })])
+            case "mpd":
+                return new VideoSourceDescriptor([new DashSource({
+                    url: files_response[0]._links.source.href,
+                })])
+        }
+    })()
+
     return new PlatformVideoDetails({
         description: video_response.description,
-        video: new VideoSourceDescriptor([new DashSource({
-            url: files_response[0]._links.source.href
-        })]),
+        video: video_source,
         rating: new RatingLikes(0),
         subtitles: video_response.tracks.subtitles.map(subtitle => ({
             name: subtitle.label,
